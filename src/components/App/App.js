@@ -1,6 +1,7 @@
 import React from "react";
 import styles from './App.module.css';
 import Header from "../Header";
+import Card from "../Card";
 
 const App = () => {
   return (
@@ -15,7 +16,8 @@ const App = () => {
             <div style={{width: "502px", height: "50px", backgroundColor: "#778da9"}}></div>
           </div>
           <div className={styles["bottom-container"]}>
-            <div style={{width: "502px", height:"400px", backgroundColor: "#778da9"}}></div>
+            {/* <div style={{width: "502px", height:"400px", backgroundColor: "#778da9"}}></div> */}
+            <Card />
           </div>
         </div>
       </div>

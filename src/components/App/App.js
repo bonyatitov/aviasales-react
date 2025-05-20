@@ -2,21 +2,29 @@ import React from "react";
 import styles from './App.module.css';
 import Header from "../Header";
 import Card from "../Card";
+import MainFilter from "../MainFilter";
+import AdditionalFilter from "../AdditionalFilter";
 
 const App = () => {
+  const tickets = [];
+
   return (
    <div className={styles["app-container"]}>
       <Header />
       <div className={styles["main-container"]}>
         <div className={styles["left-container"]}>
-          <div style={{height:'252px', width: '232px', backgroundColor: '#778da9'}}></div>
+          {/* <div style={{height:'252px', width: '232px', backgroundColor: '#778da9'}}></div> */}
+          <AdditionalFilter />
         </div>
         <div className={styles["right-container"]}>
           <div className={styles["top-container"]}>
-            <div style={{width: "502px", height: "50px", backgroundColor: "#778da9"}}></div>
+            {/* <div style={{width: "502px", height: "50px", backgroundColor: "#778da9"}}></div> */}
+            <MainFilter />
           </div>
           <div className={styles["bottom-container"]}>
             {/* <div style={{width: "502px", height:"400px", backgroundColor: "#778da9"}}></div> */}
+            <Card />
+            <Card />
             <Card />
           </div>
         </div>

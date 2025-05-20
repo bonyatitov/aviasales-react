@@ -1,5 +1,7 @@
 import React, {StrictMode} from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { store } from './store/slices/additionalFilterSlice';
 import App from './components/App';
 import 'normalize.css';
 import './index.css';
@@ -7,7 +9,9 @@ import './index.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </StrictMode>
 );
 

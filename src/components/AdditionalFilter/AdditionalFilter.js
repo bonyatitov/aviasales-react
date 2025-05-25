@@ -1,36 +1,29 @@
-import React from "react";
-import styles from "./additional-filter.module.css";
-import { useSelector, useDispatch } from "react-redux";
-
+import React from 'react';
+import styles from './additional-filter.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleFilter } from '../../store/slices/filteresSlice';
 
 const AdditionalFilter = () => {
-  const allfilters = useSelector((state) => state.filteres);
-  const filters = allfilters.filter(filter => filter.type === 'additionalFilter' )
-  console.log(allfilters);
-
+  const filters = useSelector((state) =>
+    state.filters.filter((filter) => filter.type === 'additionalFilter'),
+  );
   const dispatch = useDispatch();
 
   const handleFilterToggle = (filterName) => {
-    dispatch({
-      type: 'TOGGLE_FILTER',
-      payload: { name: filterName }
-    });
+    dispatch(toggleFilter(filterName));
   };
 
   return (
     <div className={styles.container}>
       <span className={styles.heading}>КОЛИЧЕСТВО ПЕРЕСАДОК</span>
       <ul>
-        {filters.map(filter => (
+        {filters.map((filter) => (
           <li className={styles.filter} key={filter.id}>
             <label>
-              <input 
-              onChange={() => {
-                handleFilterToggle(filter.name);
-                console.log(`Имя фильтра ${filter.name}, \n checked: ${filter.checked}`)
-              }} 
-              type="checkbox"
-              checked={filter.checked}
+              <input
+                type="checkbox"
+                checked={filter.checked}
+                onChange={() => handleFilterToggle(filter.name)}
               />
               <span className={styles.checkmark}></span>
               {filter.title}

@@ -1,2 +1,2 @@
-import MainFilter from "./MainFilter";
+import MainFilter from './MainFilter';
 export default MainFilter;

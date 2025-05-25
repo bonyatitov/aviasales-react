@@ -1,7 +1,7 @@
-import React, {StrictMode} from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from './store/slices/additionalFilterSlice';
+import { store } from './store/store';
 import App from './components/App';
 import 'normalize.css';
 import './index.css';
@@ -12,7 +12,5 @@ root.render(
     <Provider store={store}>
       <App />
     </Provider>
-  </StrictMode>
+  </StrictMode>,
 );
-
-

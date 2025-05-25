@@ -1,35 +1,32 @@
-import React from "react";
+import { useSelector } from 'react-redux';
 import styles from './App.module.css';
-import Header from "../Header";
-import Card from "../Card";
-import MainFilter from "../MainFilter";
-import AdditionalFilter from "../AdditionalFilter";
+import Header from '../Header';
+import MainFilter from '../MainFilter';
+import AdditionalFilter from '../AdditionalFilter';
+import Loader from '../loader';
+import TicketList from '../TicketList';
 
 const App = () => {
-  const tickets = [];
+  const { loading } = useSelector((state) => state.data);
 
   return (
-   <div className={styles["app-container"]}>
+    <div className={styles['app-container']}>
       <Header />
-      <div className={styles["main-container"]}>
-        <div className={styles["left-container"]}>
-          {/* <div style={{height:'252px', width: '232px', backgroundColor: '#778da9'}}></div> */}
+      <div className={styles['main-container']}>
+        <div className={styles['left-container']}>
           <AdditionalFilter />
         </div>
-        <div className={styles["right-container"]}>
-          <div className={styles["top-container"]}>
-            {/* <div style={{width: "502px", height: "50px", backgroundColor: "#778da9"}}></div> */}
+        <div className={styles['right-container']}>
+          <div className={styles['top-container']}>
+            {loading && <Loader />}
             <MainFilter />
           </div>
-          <div className={styles["bottom-container"]}>
-            {/* <div style={{width: "502px", height:"400px", backgroundColor: "#778da9"}}></div> */}
-            <Card />
-            <Card />
-            <Card />
+          <div className={styles['bottom-container']}>
+            <TicketList />
           </div>
         </div>
       </div>
-   </div>
+    </div>
   );
 };
 

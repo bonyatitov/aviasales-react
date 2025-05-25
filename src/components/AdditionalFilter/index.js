@@ -1,2 +1,2 @@
-import AdditionalFilter from "./AdditionalFilter";
+import AdditionalFilter from './AdditionalFilter';
 export default AdditionalFilter;

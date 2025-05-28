@@ -18,17 +18,17 @@ const AdditionalFilter = () => {
       <span className={styles.heading}>КОЛИЧЕСТВО ПЕРЕСАДОК</span>
       <ul>
         {filters.map((filter) => (
-          <li className={styles.filter} key={filter.id}>
-            <label>
+          <label>
+            <li className={styles.filter} key={filter.id}>
               <input
+                onClick={() => handleFilterToggle(filter.name)}
                 type="checkbox"
                 checked={filter.checked}
-                onChange={() => handleFilterToggle(filter.name)}
               />
               <span className={styles.checkmark}></span>
               {filter.title}
-            </label>
-          </li>
+            </li>
+          </label>
         ))}
       </ul>
     </div>

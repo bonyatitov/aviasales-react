@@ -10,7 +10,7 @@ const dataSlice = createSlice({
   },
   reducers: {
     setTickets: (state, action) => {
-      state.tickets = action.payload;
+      state.tickets = [...state.tickets, ...action.payload];
     },
     setLoading: (state, action) => {
       state.loading = action.payload;

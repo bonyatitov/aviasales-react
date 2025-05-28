@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { getData } from '../../services/api';
 import styles from './App.module.css';
 import Header from '../Header';
 import MainFilter from '../MainFilter';
@@ -8,6 +10,9 @@ import TicketList from '../TicketList';
 
 const App = () => {
   const { loading } = useSelector((state) => state.data);
+  useEffect(() => {
+    getData(); // просто вызов, потому что он сам диспатчит в store
+  }, []);
 
   return (
     <div className={styles['app-container']}>

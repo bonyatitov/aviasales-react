@@ -2,14 +2,12 @@ import { store } from '../store/store';
 import { setTickets, setLoading, setError, setStop } from '../store/slices/ticketsSlice';
 
 const getKey = async () => {
-  const request = await fetch('https://aviasales-test-api.kata.academy/search');
-
-  if (!request.ok) {
-    throw new Error(`Ключ не получен, статус: ${request.status}`);
+  const response = await fetch('https://aviasales-test-api.kata.academy/search');
+  if (!response.ok) {
+    throw new Error(`Ключ не получен: ${response.status}`);
   }
-
-  const response = await request.json();
-  localStorage.setItem('searchId', response.searchId);
+  const data = await response.json();
+  return data.searchId;
 };
 
 export const getData = async () => {
@@ -17,22 +15,30 @@ export const getData = async () => {
     store.dispatch(setLoading(true));
     store.dispatch(setError(false));
 
-    await getKey();
-    let key = null;
-    if (localStorage.getItem('searchId')) {
-      key = localStorage.getItem('searchId');
+    let searchId = await getKey();
+
+    let allTickets = [];
+    let stop = false;
+
+    while (!stop) {
+      const res = await fetch(
+        `https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`,
+      );
+      if (!res.ok) {
+        // Повторяем, если 500 — это норм для API
+        if (res.status === 500) continue;
+        throw new Error(`Ошибка запроса: ${res.status}`);
+      }
+
+      const data = await res.json();
+      allTickets = [...allTickets, ...data.tickets];
+      stop = data.stop;
     }
 
-    const request = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${key}`);
-    if (!request.ok) {
-      throw new Error(`Данные не получены ${request.status}`);
-    }
-
-    const response = await request.json();
-    store.dispatch(setTickets(response.tickets));
-    store.dispatch(setStop(response.stop));
-  } catch (err) {
-    console.error(err);
+    store.dispatch(setTickets(allTickets));
+    store.dispatch(setStop(true));
+  } catch (error) {
+    console.error('Ошибка загрузки билетов:', error);
     store.dispatch(setError(true));
   } finally {
     store.dispatch(setLoading(false));

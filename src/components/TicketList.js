@@ -7,14 +7,18 @@ import moment from 'moment';
 const TICKETS_STEP = 5;
 
 const TicketList = () => {
-  const { loading, error, stop } = useSelector((state) => state.data);
+  const { loading, error, stop, data } = useSelector((state) => state.data);
   const filteredTickets = useSelector(selectFilteredTickets);
   const dispatch = useDispatch();
   const [visibleCount, setVisibleCount] = useState(TICKETS_STEP);
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   //getData();
+  //   while (!stop) {
+  //     dispatch(getData());
+  //     console.log(data);
+  //   }
+  // }, []);
 
   useEffect(() => {
     setVisibleCount(TICKETS_STEP);
@@ -43,9 +47,9 @@ const TicketList = () => {
   };
 
   const handleShowMore = () => {
-    if (visibleCount >= filteredTickets.length && !stop) {
-      dispatch(getData());
-    }
+    // if (visibleCount >= filteredTickets.length && !stop) {
+    //   dispatch(getData());
+    // }
     setVisibleCount((prev) => prev + TICKETS_STEP);
   };
 

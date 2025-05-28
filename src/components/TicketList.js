@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getData } from '../services/api';
 import { selectFilteredTickets } from '../store/selectors/ticketSelectors';
 import moment from 'moment';
+import { v4 as uuidv4 } from 'uuid';
 
 const TICKETS_STEP = 5;
 
@@ -57,7 +57,7 @@ const TicketList = () => {
 
   return (
     <div className="ticket-list">
-      {filteredTickets.slice(0, visibleCount).map((ticket, index) => (
+      {filteredTickets.slice(0, visibleCount).map((ticket, index = uuidv4()) => (
         <div key={index} className="ticket">
           <div className="ticket-header">
             <div className="price">{ticket.price.toLocaleString()} ₽</div>
@@ -66,7 +66,7 @@ const TicketList = () => {
             </div>
           </div>
 
-          {ticket.segments.map((segment, idx) => (
+          {ticket.segments.map((segment, idx = uuidv4()) => (
             <div key={idx} className="segment">
               <div className="route">
                 <div className="route-info">
